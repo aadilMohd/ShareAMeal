@@ -8,6 +8,7 @@ import android.view.WindowManager;
 public class login_screen extends AppCompatActivity {
 
     //Variables
+    //hello
     public static final String PREFS_NAME = "MyPrefsFile";
 
     @Override
