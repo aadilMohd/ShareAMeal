@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">share_meal</string>
+    <string name="login">Login</string>
+    <string name="please_sign">Please sign in to continue.</string>
+</resources>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "726049010393",
+    "firebase_url": "https://shareameal-d71dd-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "shareameal-d71dd",
+    "storage_bucket": "shareameal-d71dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726049010393:android:afecb7c03c63fa8de9c4c8",
+        "android_client_info": {
+          "package_name": "com.example.share_meal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "726049010393-tbf57vc4f73l4apat4iet1n2ekmsvu6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBavuZlnqWkALD9LIWeGog9Gh8lGx_ylCc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "726049010393-tbf57vc4f73l4apat4iet1n2ekmsvu6c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
