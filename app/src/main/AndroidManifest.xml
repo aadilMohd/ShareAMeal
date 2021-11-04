@@ -9,9 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Share_meal">
+
+        <activity
+            android:name=".signup_screen"
+            android:exported="true" />
+
         <activity
             android:name=".login_screen"
             android:exported="true" />
+
         <activity
             android:name=".splash_screen"
             android:exported="true">

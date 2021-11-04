@@ -2,4 +2,6 @@
     <string name="app_name">share_meal</string>
     <string name="login">Login</string>
     <string name="please_sign">Please sign in to continue.</string>
+    <string name="create_acco">Create Account</string>
+    <string name="please_fill">Please fill  your information.</string>
 </resources>
