@@ -5,7 +5,8 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login_screen">
+    tools:context=".login_screen"
+    android:background="@color/white">
 
     <View
         android:id="@+id/some_id"
