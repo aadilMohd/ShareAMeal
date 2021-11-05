@@ -44,7 +44,7 @@ public class login_screen extends AppCompatActivity{
             edit.apply();
         }
         else{
-            startActivity(new Intent(login_screen.this,main_screen.class));
+            startActivity(new Intent(login_screen.this,MainActivity.class));
             finish();
         }
 
