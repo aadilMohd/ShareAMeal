@@ -9,14 +9,17 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class splash_screen extends AppCompatActivity {
 
     //Variables
     Animation rtol;
     ImageView app_logo;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,10 @@ public class splash_screen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(FirebaseAuth.getInstance().getCurrentUser()==null){
+
+
+
+                if(user==null){
                     Intent i = new Intent(splash_screen.this,login_screen.class);
                     startActivity(i);
                     finish();
@@ -53,6 +59,6 @@ public class splash_screen extends AppCompatActivity {
                 }
 
             }
-        },3500);
+        },2000);
     }
 }

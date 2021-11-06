@@ -53,11 +53,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     String uid;
 
 
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,11 +60,11 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
+        Toast.makeText(this, user.getEmail().toString(), Toast.LENGTH_SHORT).show();
 
         locationb = findViewById(R.id.locationbutton);
         pickupb = findViewById(R.id.pickupbutton);
         detailsb = findViewById(R.id.detailsbutton);
-
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLocation();
@@ -77,10 +72,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
-
-
 
         pickupb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,12 +85,10 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                         getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = inflater.inflate(R.layout.popup, null);
 
-
                 int width = ConstraintLayout.LayoutParams.MATCH_PARENT;
                 int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
                 boolean focusable = true; // lets taps outside the popup also dismiss it
                 popupWindow = new PopupWindow(popupView, width ,height, focusable);
-
 
                 popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
 
@@ -110,27 +99,12 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                         locationb.setVisibility(view.VISIBLE);
                         pickupb.setVisibility(view.VISIBLE);
                         detailsb.setVisibility(view.VISIBLE);
-
                         popupWindow.dismiss();
-
-
 
                     }
                 });
-
-
             }
         });
-
-
-
-
-
-
-
-
-
-
     }
 
     private void fetchLocation() {
@@ -158,9 +132,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-
-
-
         }
 
     @Override
@@ -177,10 +148,13 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 userdata Objuserdata = new userdata(
                         String.valueOf(latitude),
                         String.valueOf(longitude)
-
                 );
-               System.out.println("Hiiii"+user);
 
+                        FirebaseDatabase.getInstance().getReference("Data")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .child("Location")
+                                .push()
+                                .setValue(Objuserdata);
             }
         }
 
