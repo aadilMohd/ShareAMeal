@@ -2,6 +2,7 @@ package com.example.share_meal;
 
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -24,8 +26,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.auth.User;
 
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
     Location currentLocation;
@@ -38,6 +46,14 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private ConstraintLayout detailsb;
     PopupWindow popupWindow;
 
+    private DatabaseReference mDatabase;
+
+    private FirebaseAuth mAuth;
+    FirebaseUser user;
+    String uid;
+
+
+
 
 
 
@@ -46,6 +62,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
 
         locationb = findViewById(R.id.locationbutton);
         pickupb = findViewById(R.id.pickupbutton);
@@ -119,6 +138,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+
             return;
         }
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
@@ -137,7 +157,11 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         });
-    }
+
+
+
+
+        }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -149,6 +173,14 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20f));
                 googleMap.addMarker(markerOptions);
+
+                userdata Objuserdata = new userdata(
+                        String.valueOf(latitude),
+                        String.valueOf(longitude)
+
+                );
+               System.out.println("Hiiii"+user);
+
             }
         }
 
