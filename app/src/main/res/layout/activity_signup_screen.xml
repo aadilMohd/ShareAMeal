@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".signup_screen"
-    android:background="@color/white">
+    tools:context=".signup_screen">
 
     <TextView
         android:id="@+id/create_acco"
