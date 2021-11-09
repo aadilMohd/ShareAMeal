@@ -71,7 +71,7 @@ public class login_screen extends AppCompatActivity{
             }
         });
 
-        findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.signin).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 login();

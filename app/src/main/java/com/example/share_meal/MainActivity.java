@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -46,6 +47,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private ConstraintLayout detailsb;
     PopupWindow popupWindow;
 
+    private ConstraintLayout refresh;
+
     private DatabaseReference mDatabase;
 
     private FirebaseAuth mAuth;
@@ -60,11 +63,11 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        Toast.makeText(this, user.getEmail().toString(), Toast.LENGTH_SHORT).show();
 
         locationb = findViewById(R.id.locationbutton);
         pickupb = findViewById(R.id.pickupbutton);
         detailsb = findViewById(R.id.detailsbutton);
+        refresh = findViewById(R.id.refresh);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLocation();
@@ -105,7 +108,20 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 });
             }
         });
+
+
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                fetchLocation();
+
+            }
+        });
+
     }
+
+
 
     private void fetchLocation() {
         if (ActivityCompat.checkSelfPermission(
