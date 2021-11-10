@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -72,11 +74,18 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         refresh = findViewById(R.id.refresh);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        fetchLocation();
+        fetchLocation(new LatLng(0,0));
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        detailsb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOUt();
+            }
+        });
 
         pickupb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,14 +101,22 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
                 int width = ConstraintLayout.LayoutParams.MATCH_PARENT;
                 int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-                boolean focusable = true; // lets taps outside the popup also dismiss it
-                popupWindow = new PopupWindow(popupView, width ,height, focusable);
+                boolean focusable = false; // lets taps outside the popup also dismiss it
+                popupWindow = new PopupWindow(popupView, width, height, focusable);
 
                 popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+
+                // creating new popupview
+                LayoutInflater inflater1 = (LayoutInflater)
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView1 = inflater.inflate(R.layout.popup_pickup_2, null);
+                PopupWindow popupWindow1 = new PopupWindow(popupView1, width, height, focusable);
+
 
                 popupWindow.getContentView().findViewById(R.id.cancelbutton).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
 
                         locationb.setVisibility(view.VISIBLE);
                         pickupb.setVisibility(view.VISIBLE);
@@ -108,15 +125,115 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
                     }
                 });
+
+                //showing second popop after clicking confirm
+
+                popupWindow.getContentView().findViewById(R.id.confirmbutton).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+//                        Toast.makeText(MainActivity.this, "clicked confrim", Toast.LENGTH_SHORT).show();
+                            popupWindow.dismiss();
+                            popupWindow1.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+                            popupWindow1.getContentView().findViewById(R.id.dismissbutton).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    locationb.setVisibility(view.VISIBLE);
+                                    pickupb.setVisibility(view.VISIBLE);
+                                    detailsb.setVisibility(view.VISIBLE);
+                                    popupWindow1.dismiss();
+                                }
+                            });
+                    }
+                });
             }
         });
+
+        locationb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                locationb.setVisibility(view.INVISIBLE);
+                pickupb.setVisibility(view.INVISIBLE);
+                detailsb.setVisibility(view.INVISIBLE);
+
+                LayoutInflater inflater = (LayoutInflater)
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView = inflater.inflate(R.layout.popup_location, null);
+
+                int width = ConstraintLayout.LayoutParams.MATCH_PARENT;
+                int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+                boolean focusable = false; // lets taps outside the popup also dismiss it
+                popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+               TextView locationText = popupWindow.getContentView().findViewById(R.id.locationt);
+               locationText.setText(new GetAddress(latitude,longitude,MainActivity.this).getAddress());
+
+                // creating new popupview
+                LayoutInflater inflater1 = (LayoutInflater)
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView1 = inflater.inflate(R.layout.popup_location2, null);
+                PopupWindow popupWindow1 = new PopupWindow(popupView1, width, height, true);
+
+                popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+
+                popupWindow.getContentView().findViewById(R.id.changelocationbutton).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        popupWindow.dismiss();
+                        popupWindow1.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+
+
+                        popupWindow1.getContentView().findViewById(R.id.confirmlocationbutton).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                EditText addresstext = popupWindow1.getContentView().findViewById(R.id.newaddress);
+                                String newadr = addresstext.getText().toString();
+
+
+
+                               LatLng l2=new GetLatlong(MainActivity.this,newadr).getLatLong();
+
+                               if(l2.latitude==0 && l2.longitude==0){
+                                   Toast.makeText(MainActivity.this, "Address Invalid, Try Again", Toast.LENGTH_SHORT).show();
+                               }
+                               else {
+                                   fetchLocation(l2);
+                               }
+
+                                locationb.setVisibility(view.VISIBLE);
+                                pickupb.setVisibility(view.VISIBLE);
+                                detailsb.setVisibility(view.VISIBLE);
+                                popupWindow1.dismiss();
+
+
+
+
+                            }
+                        });
+
+                    }
+                });
+
+
+//
+//  Toast.makeText(MainActivity.this, new GetAddress(latitude,longitude,MainActivity.this).getAddress(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+
 
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                fetchLocation();
+                Toast.makeText(MainActivity.this, "Fetching ur location", Toast.LENGTH_SHORT).show();
+
+                fetchLocation(new LatLng(0,0));
 
             }
         });
@@ -125,30 +242,42 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-    private void fetchLocation() {
-        if (ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+    private void fetchLocation( LatLng l) {
+        if(l.latitude==0 && l.longitude==0) {
+            if (ActivityCompat.checkSelfPermission(
+                    this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
 
-            return;
-        }
-        Task<Location> task = fusedLocationProviderClient.getLastLocation();
-        ((Task) task).addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    currentLocation = location;
-                    latitude = currentLocation.getLatitude();
-                    longitude = currentLocation.getLongitude();
-
-                    Toast.makeText(getApplicationContext(), currentLocation.getLatitude() + " " + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
-                    SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-                    assert supportMapFragment != null;
-                    supportMapFragment.getMapAsync(MainActivity.this::onMapReady);
-                }
+                return;
             }
-        });
+            Task<Location> task = fusedLocationProviderClient.getLastLocation();
+            ((Task) task).addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        currentLocation = location;
+                        latitude = currentLocation.getLatitude();
+                        longitude = currentLocation.getLongitude();
+
+                        Toast.makeText(getApplicationContext(), currentLocation.getLatitude() + " " + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
+                        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+                        assert supportMapFragment != null;
+                        supportMapFragment.getMapAsync(MainActivity.this::onMapReady);
+                    }
+                }
+            });
+        }
+        else{
+
+            longitude=l.latitude;
+            longitude=l.longitude;
+
+            SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+            assert supportMapFragment != null;
+            supportMapFragment.getMapAsync(MainActivity.this::onMapReady);
+
+        }
 
         }
 
@@ -174,4 +303,10 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
 
+
+    public void signOUt(){
+        FirebaseAuth.getInstance().signOut();
+
+        startActivity(new Intent(MainActivity.this,login_screen.class));
+    }
 }

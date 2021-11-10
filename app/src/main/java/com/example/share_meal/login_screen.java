@@ -37,16 +37,18 @@ public class login_screen extends AppCompatActivity{
         setContentView(R.layout.activity_login_screen);
 
         //ONE-TIME LOGIC
-        setting=getSharedPreferences(login_screen.PREFS_NAME,MODE_PRIVATE);
-        if(setting.getBoolean("hasloggedIN",true)){
-            SharedPreferences.Editor edit = setting.edit();
-            edit.putBoolean("hasloggedIN",false);
-            edit.apply();
-        }
-        else{
-            startActivity(new Intent(login_screen.this,MainActivity.class));
-            finish();
-        }
+//        setting=getSharedPreferences(login_screen.PREFS_NAME,MODE_PRIVATE);
+//        if(setting.getBoolean("hasloggedIN",true)){
+//            SharedPreferences.Editor edit = setting.edit();
+//            edit.putBoolean("hasloggedIN",false);
+//            edit.apply();
+//        }
+//        else{
+//            startActivity(new Intent(login_screen.this,MainActivity.class));
+//            finish();
+//        }
+
+
 
         //Hooks
         mAuth =  FirebaseAuth.getInstance();
@@ -129,7 +131,7 @@ public class login_screen extends AppCompatActivity{
     
     private void login() {
         if(validateinfo()){
-            p_Bar.setVisibility(View.VISIBLE);
+//            p_Bar.setVisibility(View.VISIBLE);
 
             mAuth.signInWithEmailAndPassword(
                     email_txt.getText().toString().trim(),password_txt.getText().toString().trim())
@@ -137,14 +139,14 @@ public class login_screen extends AppCompatActivity{
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> signin_task) {
                             if(signin_task.isSuccessful()){
-                                startActivity(new Intent(login_screen.this,main_screen.class));
+                                startActivity(new Intent(login_screen.this,MainActivity.class));
                                 finish();
                                 Toast.makeText(login_screen.this, "WELCOME !", Toast.LENGTH_LONG).show();
                             }
                             else{
                                 Toast.makeText(login_screen.this, "INCORRECT EMAIL OR PASSWORD ", Toast.LENGTH_SHORT).show();
                             }
-                            p_Bar.setVisibility(View.GONE);
+//                            p_Bar.setVisibility(View.GONE);
                         }
                     });
         }
