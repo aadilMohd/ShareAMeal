@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.Toast;
@@ -59,6 +60,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -166,10 +168,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                         String.valueOf(longitude)
                 );
 
-                        FirebaseDatabase.getInstance().getReference("Data")
-                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 .child("Location")
-                                .push()
                                 .setValue(Objuserdata);
             }
         }

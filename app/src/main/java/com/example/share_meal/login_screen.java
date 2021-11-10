@@ -80,7 +80,7 @@ public class login_screen extends AppCompatActivity{
     }
 
     private void forgot() {
-        if(validateinfo()){
+        if(!email_txt.getText().toString().trim().isEmpty()){
             p_Bar.setVisibility(View.VISIBLE);
 
             mAuth.sendPasswordResetEmail(email_txt.toString().trim())
