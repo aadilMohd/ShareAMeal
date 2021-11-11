@@ -90,7 +90,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="276dp"
             android:layout_height="wrap_content"
+            android:background="#BFBFBF"
             android:hint="Email ID"
+            android:textColorHint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.4"
@@ -100,6 +102,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailidtxt"
+                android:textColor="@color/black"
                 android:layout_width="276dp"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"/>
@@ -111,7 +114,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="276dp"
             android:layout_height="wrap_content"
+            android:background="#BFBFBF"
             android:hint="Password"
+            android:textColorHint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.4"
@@ -122,6 +127,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordtxt"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
@@ -163,7 +169,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Don't Have an Account? "
+            android:text="Don't Have an Account?"
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

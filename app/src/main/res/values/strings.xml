@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">share_meal</string>
+    <string name="app_name">Share A Meal</string>
     <string name="login">Login</string>
     <string name="please_sign">Please sign in to continue.</string>
     <string name="create_acco">Create Account</string>
     <string name="please_fill">Please fill  your information.</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="nav_drawer_open">Open Navigation Drawer</string>
+    <string name="nav_drawer_close">Close Navigation Drawer</string>
 </resources>

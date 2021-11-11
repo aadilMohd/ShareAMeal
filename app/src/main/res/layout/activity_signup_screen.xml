@@ -48,6 +48,8 @@
         android:layout_width="276dp"
         android:layout_height="wrap_content"
         android:hint="Full Name"
+        android:textColorHint="@color/black"
+        android:background="#BFBFBF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,6 +58,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/fullnametxt"
+            android:textColor="@color/black"
             android:layout_width="276dp"
             android:layout_height="wrap_content" />
 
@@ -66,7 +69,9 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="276dp"
         android:layout_height="wrap_content"
+        android:background="#BFBFBF"
         android:hint="Phone Number"
+        android:textColorHint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/fullnamelay"
         app:layout_constraintStart_toStartOf="@+id/fullnamelay"
@@ -75,6 +80,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/phonetxt"
+            android:textColor="@color/black"
             android:layout_width="276dp"
             android:layout_height="wrap_content"
             android:inputType="number"/>
@@ -86,7 +92,9 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="276dp"
         android:layout_height="wrap_content"
+        android:background="#BFBFBF"
         android:hint="Email ID"
+        android:textColorHint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/phonelay"
         app:layout_constraintStart_toStartOf="@+id/phonelay"
@@ -95,6 +103,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailidtxt"
+            android:textColor="@color/black"
             android:layout_width="276dp"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"/>
@@ -106,7 +115,9 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="276dp"
         android:layout_height="wrap_content"
+        android:background="#BFBFBF"
         android:hint="Passowrd"
+        android:textColorHint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/emailidlay"
         app:layout_constraintStart_toStartOf="@+id/emailidlay"
@@ -116,6 +127,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordtxt"
+            android:textColor="@color/black"
             android:layout_width="276dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"/>
@@ -127,7 +139,9 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="276dp"
         android:layout_height="wrap_content"
+        android:background="#BFBFBF"
         android:hint="Confirm Passowrd"
+        android:textColorHint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/passwordlay"
         app:layout_constraintStart_toStartOf="@+id/passwordlay"
@@ -137,6 +151,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/conf_passwordtxt"
+            android:textColor="@color/black"
             android:layout_width="276dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"/>

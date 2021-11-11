@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
         android:gravity="center"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Ener your Address"
         android:textColor="@color/black"
         android:textSize="34sp"
@@ -27,17 +28,18 @@
         android:id="@+id/confirmlocationbutton"
         android:layout_width="204dp"
         android:layout_height="67dp"
-        android:layout_marginStart="112dp"
 
         android:layout_marginBottom="112dp"
         android:background="@drawable/button_view"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="@+id/newaddress"
+        app:layout_constraintStart_toStartOf="@+id/newaddress">
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="200dp"
             android:layout_height="88dp"
+            android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
             android:text="Set Address"
             android:textColor="@color/white"
@@ -58,9 +60,9 @@
         android:ems="10"
         android:inputType="textLongMessage"
         app:layout_constraintBottom_toTopOf="@+id/confirmlocationbutton"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/locationc"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/locationc"
         app:layout_constraintTop_toBottomOf="@+id/locationc"
         app:layout_constraintVertical_bias="0.0" />
 

@@ -24,4 +24,10 @@
         <item name="android:textColor">#69000000</item>
     </style>
 
+    <style name="ActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/mainPrimary</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
 </resources>

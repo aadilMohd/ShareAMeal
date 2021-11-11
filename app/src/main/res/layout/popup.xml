@@ -5,58 +5,46 @@
     android:id="@+id/mainsection"
     android:layout_width="414dp"
     android:layout_height="640dp"
-    android:background="@drawable/lblue_rectange"
-    >
-
-
-
-<!--    -->
-<!--        android:id="@+id/rectangle_1"-->
-<!--        android:layout_width="414dp"-->
-<!--        android:layout_height="440dp"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:layout_centerVertical="true"-->
-<!--        android:background="@drawable/lblue_rectange"-->
-<!--        />-->
-
-
-
+    android:background="@drawable/lblue_rectange">
 
     <TextView
-            android:id="@+id/pickupt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="112dp"
-            android:text="Pick Up by"
-            android:textColor="@color/black"
-            android:textSize="34sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/namet"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.142" />
+        android:id="@+id/pickupt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Pick Up by"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.142" />
 
     <TextView
         android:id="@+id/namet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Name : "
         android:textColor="@color/black"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/pickupt"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/phonet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="52dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Phone : "
         android:textColor="@color/black"
         android:textSize="34sp"
@@ -71,16 +59,17 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="52dp"
         android:layout_marginEnd="10dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Sample Name "
         android:textColor="@color/black"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/phonea"
+        app:layout_constraintBottom_toBottomOf="@+id/namet"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintHorizontal_bias="0.764"
         app:layout_constraintStart_toEndOf="@+id/namet"
         app:layout_constraintTop_toBottomOf="@+id/pickupt"
-        app:layout_constraintVertical_bias="0.037" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/phonea"
@@ -89,12 +78,13 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="52dp"
         android:layout_marginEnd="10dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="9894233543"
         android:textColor="@color/black"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/phonet"
         app:layout_constraintTop_toBottomOf="@+id/namet" />
 
@@ -103,7 +93,6 @@
         android:layout_width="164dp"
         android:layout_height="47dp"
         android:layout_marginStart="28dp"
-
         android:layout_marginTop="25dp"
         android:layout_marginBottom="112dp"
         android:background="@drawable/btn_bg"
@@ -115,6 +104,7 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
             android:text="Cancel"
             android:textColor="@color/black"
             android:textSize="24sp"
@@ -130,7 +120,6 @@
         android:id="@+id/confirmbutton"
         android:layout_width="164dp"
         android:layout_height="47dp"
-
         android:layout_marginTop="25dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="112dp"
@@ -145,6 +134,7 @@
             android:id="@+id/confirmtext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
             android:text="Confirm"
             android:textColor="@color/black"
             android:textSize="24sp"
