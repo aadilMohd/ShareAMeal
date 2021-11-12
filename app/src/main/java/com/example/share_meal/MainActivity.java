@@ -8,6 +8,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -17,8 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -33,18 +39,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.auth.User;
 
-public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
+
+    /*--------------VARIABLES--------------*/
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
     private double latitude;
     private double longitude;
+
     private ConstraintLayout locationb;
     private ConstraintLayout pickupb;
     private ConstraintLayout detailsb;
@@ -58,6 +68,10 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     FirebaseUser user;
     String uid;
 
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +79,30 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
+        /*--------------HOOKS--------------*/
         user = FirebaseAuth.getInstance().getCurrentUser();
-
 
         locationb = findViewById(R.id.locationbutton);
         pickupb = findViewById(R.id.pickupbutton);
         detailsb = findViewById(R.id.detailsbutton);
         refresh = findViewById(R.id.refresh);
+
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navigationView = findViewById(R.id.nav_View);
+        toolbar = findViewById(R.id.ActionBar);
+
+        /*--------------TOOLBAR--------------*/
+        setSupportActionBar(toolbar);
+
+        /*--------------NAVIGATION VIEW--------------*/
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this,drawerLayout,toolbar,R.string.nav_drawer_open,R.string.nav_drawer_close);
+
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLocation(new LatLng(0,0));
@@ -112,17 +143,13 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 View popupView1 = inflater.inflate(R.layout.popup_pickup_2, null);
                 PopupWindow popupWindow1 = new PopupWindow(popupView1, width, height, focusable);
 
-
                 popupWindow.getContentView().findViewById(R.id.cancelbutton).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-
                         locationb.setVisibility(view.VISIBLE);
                         pickupb.setVisibility(view.VISIBLE);
                         detailsb.setVisibility(view.VISIBLE);
                         popupWindow.dismiss();
-
                     }
                 });
 
@@ -152,7 +179,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-
                 locationb.setVisibility(view.INVISIBLE);
                 pickupb.setVisibility(view.INVISIBLE);
                 detailsb.setVisibility(view.INVISIBLE);
@@ -176,24 +202,18 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 PopupWindow popupWindow1 = new PopupWindow(popupView1, width, height, true);
 
                 popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
-
                 popupWindow.getContentView().findViewById(R.id.changelocationbutton).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                         popupWindow.dismiss();
                         popupWindow1.showAtLocation(view, Gravity.BOTTOM, 0, 0);
-
 
                         popupWindow1.getContentView().findViewById(R.id.confirmlocationbutton).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 EditText addresstext = popupWindow1.getContentView().findViewById(R.id.newaddress);
                                 String newadr = addresstext.getText().toString();
-
-
-
-                               LatLng l2=new GetLatlong(MainActivity.this,newadr).getLatLong();
+                                LatLng l2=new GetLatlong(MainActivity.this,newadr).getLatLong();
 
                                if(l2.latitude==0 && l2.longitude==0){
                                    Toast.makeText(MainActivity.this, "Address Invalid, Try Again", Toast.LENGTH_SHORT).show();
@@ -207,40 +227,22 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                                 detailsb.setVisibility(view.VISIBLE);
                                 popupWindow1.dismiss();
 
-
-
-
                             }
                         });
-
                     }
                 });
-
-
-//
 //  Toast.makeText(MainActivity.this, new GetAddress(latitude,longitude,MainActivity.this).getAddress(), Toast.LENGTH_SHORT).show();
-
             }
         });
-
-
-
-
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Toast.makeText(MainActivity.this, "Fetching ur location", Toast.LENGTH_SHORT).show();
-
                 fetchLocation(new LatLng(0,0));
-
             }
         });
-
     }
-
-
 
     private void fetchLocation( LatLng l) {
         if(l.latitude==0 && l.longitude==0) {
@@ -248,7 +250,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                     this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                     this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
-
                 return;
             }
             Task<Location> task = fusedLocationProviderClient.getLastLocation();
@@ -269,17 +270,14 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             });
         }
         else{
-
             longitude=l.latitude;
             longitude=l.longitude;
 
             SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
             assert supportMapFragment != null;
             supportMapFragment.getMapAsync(MainActivity.this::onMapReady);
-
         }
-
-        }
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -294,19 +292,31 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
                 userdata Objuserdata = new userdata(
                         String.valueOf(latitude),
-                        String.valueOf(longitude)
-                );
+                        String.valueOf(longitude));
 
-                        FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 .child("Location")
                                 .setValue(Objuserdata);
             }
         }
 
-
     public void signOUt(){
         FirebaseAuth.getInstance().signOut();
-
         startActivity(new Intent(MainActivity.this,login_screen.class));
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return true;
     }
 }
