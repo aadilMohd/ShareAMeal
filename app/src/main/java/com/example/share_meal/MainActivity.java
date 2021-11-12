@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         detailsb = findViewById(R.id.detailsbutton);
         refresh = findViewById(R.id.refresh);
 
-        drawerLayout = findViewById(R.id.drawerLayout);
-        navigationView = findViewById(R.id.nav_View);
+        drawerLayout = findViewById(R.id.Main_drawerLayout);
+        navigationView = findViewById(R.id.Main_NavView);
         toolbar = findViewById(R.id.ActionBar);
 
         /*--------------TOOLBAR--------------*/
@@ -317,6 +317,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_btnHome:
+                break;
+            case R.id.nav_btnAbout:
+                Intent a =new Intent(MainActivity.this,about_screen.class);
+                startActivity(a);
+                break;
+            case R.id.nav_btnSupport:
+                Intent s =new Intent(MainActivity.this,support_screen.class);
+                startActivity(s);
+                break;
+            case R.id.nav_ProfbtnForgotpass:
+                Toast.makeText(this,"FORGOT PASSWORD",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_ProfbtnLogout:
+                signOUt();
+                break;
+        }
         return true;
     }
 }

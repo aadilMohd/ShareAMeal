@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Support_drawerlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".support_screen"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/Support_NavView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/profile_menu"
+        android:layout_gravity="start"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/ActionBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/ActionBar"
+                style="@style/ActionBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/menu"
+                app:title="@string/app_name">
+
+                <ImageView
+                    android:id="@+id/nav_AppIcon"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_gravity="end"
+                    android:src="@drawable/img" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        /*----------CONTACT US----------*/
+        <TextView
+            android:id="@+id/Support_contactus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="CONTACT US :"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@+id/ActionBarLayout"
+            app:layout_constraintTop_toBottomOf="@+id/ActionBarLayout" />
+            <TextView
+            android:id="@+id/Support_CompMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Email Id: shareameal@gmail.com"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="@+id/Support_contactus"
+            app:layout_constraintTop_toBottomOf="@+id/Support_contactus"/>
+            <TextView
+            android:id="@+id/Support_CompPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Phone NO.: +91 XXXXX XXXXX"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="@+id/Support_CompMail"
+            app:layout_constraintTop_toBottomOf="@+id/Support_CompMail"/>
+
+        /*----------DEV CONTACT----------*/
+        <TextView
+            android:id="@+id/Support_DevContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="DEVELOPER CONTACT :"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@+id/ActionBarLayout"
+            app:layout_constraintTop_toBottomOf="@+id/Support_CompPhone" />
+            <TextView
+            android:id="@+id/Support_Dev1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Palak Deep Kaur (UI/UX Designer)"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="@+id/Support_DevContact"
+            app:layout_constraintTop_toBottomOf="@+id/Support_DevContact"/>
+                <TextView
+                    android:id="@+id/Dev1_mail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="(palakdeep.kaur2020@vitstudent.ac.in)"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintStart_toStartOf="@+id/Support_Dev1"
+                    app:layout_constraintTop_toBottomOf="@+id/Support_Dev1"/>
+            <TextView
+            android:id="@+id/Support_Dev2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Mohmmed Aadil (App Developer)"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="@+id/Support_Dev1"
+            app:layout_constraintTop_toBottomOf="@+id/Dev1_mail"/>
+                <TextView
+                android:id="@+id/Dev2_mail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="(mohammed.aadil2020@vitstudent.ac.in)"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="@+id/Support_Dev2"
+                app:layout_constraintTop_toBottomOf="@+id/Support_Dev2"/>
+            <TextView
+            android:id="@+id/Support_Dev3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Namra Maniar (App Developer)"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="@+id/Support_Dev2"
+            app:layout_constraintTop_toBottomOf="@+id/Dev2_mail"/>
+                <TextView
+                    android:id="@+id/Dev3_mail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="(namra.maniar2020@vitstudent.ac.in)"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintStart_toStartOf="@+id/Support_Dev3"
+                    app:layout_constraintTop_toBottomOf="@+id/Support_Dev3"/>
+            <TextView
+            android:id="@+id/Support_Dev4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Tejas Bharambe (Researcher)"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="@+id/Support_Dev3"
+            app:layout_constraintTop_toBottomOf="@+id/Dev3_mail"/>
+                <TextView
+                    android:id="@+id/Dev4_mail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="(tejas.bharambe2020@vitstudent.ac.in)"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintStart_toStartOf="@+id/Support_Dev4"
+                    app:layout_constraintTop_toBottomOf="@+id/Support_Dev4"/>
+            <TextView
+            android:id="@+id/Support_Dev5"
+            android:layout_width="379dp"
+            android:layout_height="68dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Eekshith Venkata Sai (Version Control)"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/Support_Dev4"
+            app:layout_constraintTop_toBottomOf="@+id/Dev4_mail" />
+                <TextView
+                    android:id="@+id/Dev5_mail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="(eekshithvenkata.sai2020@vitstudent.ac.in)"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintStart_toStartOf="@+id/Support_Dev5"
+                    app:layout_constraintTop_toBottomOf="@+id/Support_Dev5"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>
