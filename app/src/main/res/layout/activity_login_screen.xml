@@ -162,7 +162,7 @@
             android:text="Forgot Password??"
             android:fontFamily="@font/poppins_semibold"
             android:textColor="#F10C41"
-            android:textSize="35px"
+            android:textSize="25px"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/signin"
             app:layout_constraintStart_toStartOf="@+id/signin"
