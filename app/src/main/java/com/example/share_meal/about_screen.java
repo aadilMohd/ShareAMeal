@@ -73,7 +73,7 @@ public class about_screen extends AppCompatActivity implements NavigationView.On
                 finish();
                 break;
             case R.id.nav_ProfbtnForgotpass:
-                Toast.makeText(this,"FORGOT PASSWORD",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(about_screen.this,resetpassword.class));
                 break;
             case R.id.nav_ProfbtnLogout:
                 FirebaseAuth.getInstance().signOut();

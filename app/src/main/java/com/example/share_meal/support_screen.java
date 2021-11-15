@@ -73,7 +73,7 @@ public class support_screen extends AppCompatActivity implements NavigationView.
             case R.id.nav_btnSupport:
                 break;
             case R.id.nav_ProfbtnForgotpass:
-                Toast.makeText(this,"FORGOT PASSWORD",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(support_screen.this,resetpassword.class));
                 break;
             case R.id.nav_ProfbtnLogout:
                 FirebaseAuth.getInstance().signOut();

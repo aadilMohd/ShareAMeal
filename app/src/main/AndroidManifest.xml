@@ -22,6 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Share_meal">
         <activity
+            android:name=".resetpassword"
+            android:exported="false" />
+        <activity
             android:name=".support_screen"
             android:exported="false" />
         <activity

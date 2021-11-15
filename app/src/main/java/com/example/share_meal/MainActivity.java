@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(s);
                 break;
             case R.id.nav_ProfbtnForgotpass:
-                Toast.makeText(this,"FORGOT PASSWORD",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this,resetpassword.class));
                 break;
             case R.id.nav_ProfbtnLogout:
                 signOUt();

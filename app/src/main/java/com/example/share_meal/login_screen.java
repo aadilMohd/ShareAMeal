@@ -37,18 +37,11 @@ public class login_screen extends AppCompatActivity{
         setContentView(R.layout.activity_login_screen);
 
         //ONE-TIME LOGIC
-//        setting=getSharedPreferences(login_screen.PREFS_NAME,MODE_PRIVATE);
-//        if(setting.getBoolean("hasloggedIN",true)){
-//            SharedPreferences.Editor edit = setting.edit();
-//            edit.putBoolean("hasloggedIN",false);
-//            edit.apply();
-//        }
-//        else{
-//            startActivity(new Intent(login_screen.this,MainActivity.class));
-//            finish();
-//        }
-
-
+        setting=getSharedPreferences(login_screen.PREFS_NAME,MODE_PRIVATE);
+        if(setting.getBoolean("hasloggedIN",false)){
+            startActivity(new Intent(login_screen.this,MainActivity.class));
+            finish();
+        }
 
         //Hooks
         mAuth =  FirebaseAuth.getInstance();
@@ -76,6 +69,10 @@ public class login_screen extends AppCompatActivity{
         findViewById(R.id.signin).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences.Editor edit = setting.edit();
+                edit.putBoolean("hasloggedIN",false);
+                edit.apply();
+
                 login();
             }
         });
@@ -85,18 +82,23 @@ public class login_screen extends AppCompatActivity{
         if(!email_txt.getText().toString().trim().isEmpty()){
             p_Bar.setVisibility(View.VISIBLE);
 
-            mAuth.sendPasswordResetEmail(email_txt.toString().trim())
+            mAuth.sendPasswordResetEmail(email_txt.getText().toString().trim())
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> passreset_task) {
-                            if(passreset_task.isSuccessful()){
-                                Toast.makeText(login_screen.this,"Check your Email Id for Forgot Password Link",Toast.LENGTH_LONG).show();
+                        public void onComplete(@NonNull Task<Void> resetpassword_task) {
+                            if(resetpassword_task.isSuccessful()){
+                                Toast.makeText(getApplicationContext(), "Check Your Mail for Reset Password Link", Toast.LENGTH_SHORT).show();
                             }
                             else{
-                                Toast.makeText(login_screen.this, "Network Issue", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
                             }
+
+                            p_Bar.setVisibility(View.GONE);
                         }
                     });
+        }
+        else{
+            email_txt.setError("Email id Required");
         }
     }
 
