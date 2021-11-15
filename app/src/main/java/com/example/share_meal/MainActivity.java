@@ -34,6 +34,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -54,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final int REQUEST_CODE = 101;
     private double latitude;
     private double longitude;
+    MarkerOptions markerOptions;
+    Marker m;
+
+    private boolean is_booked=false;
 
     private ConstraintLayout locationb;
     private ConstraintLayout pickupb;
@@ -118,6 +123,46 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        detailsb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (is_booked){
+
+                    locationb.setVisibility(view.INVISIBLE);
+                    pickupb.setVisibility(view.INVISIBLE);
+                    detailsb.setVisibility(view.INVISIBLE);
+
+                    LayoutInflater inflater1 = (LayoutInflater)
+
+                            getSystemService(LAYOUT_INFLATER_SERVICE);
+                    int width = ConstraintLayout.LayoutParams.MATCH_PARENT;
+                    int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+                    boolean focusable = false;
+                    View popupView1 = inflater1.inflate(R.layout.popup_pickup_2, null);
+                    PopupWindow popupWindow1 = new PopupWindow(popupView1, width, height, focusable);
+                    popupWindow1.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+                    popupWindow1.getContentView().findViewById(R.id.dismissbutton).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            locationb.setVisibility(view.VISIBLE);
+                            pickupb.setVisibility(view.VISIBLE);
+                            detailsb.setVisibility(view.VISIBLE);
+                            popupWindow1.dismiss();
+                        }
+                    });
+
+
+
+                }
+                else{
+
+                    Toast.makeText(MainActivity.this, "No pick up is booked , book a " +
+                            "pick up to view details ", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
         pickupb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onClick(View view) {
 //                        Toast.makeText(MainActivity.this, "clicked confrim", Toast.LENGTH_SHORT).show();
                             popupWindow.dismiss();
+                            is_booked=true;
                             popupWindow1.showAtLocation(view, Gravity.BOTTOM, 0, 0);
                             popupWindow1.getContentView().findViewById(R.id.dismissbutton).setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -202,11 +248,33 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 PopupWindow popupWindow1 = new PopupWindow(popupView1, width, height, true);
 
                 popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+
+                popupWindow.getContentView().findViewById(R.id.dismisslocationbutton).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        popupWindow.dismiss();
+                        locationb.setVisibility(view.VISIBLE);
+                        pickupb.setVisibility(view.VISIBLE);
+                        detailsb.setVisibility(view.VISIBLE);
+
+                    }
+                });
                 popupWindow.getContentView().findViewById(R.id.changelocationbutton).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         popupWindow.dismiss();
                         popupWindow1.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+
+                        popupWindow1.getContentView().findViewById(R.id.dismisslocationbutton).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                popupWindow1.dismiss();
+                                locationb.setVisibility(view.VISIBLE);
+                                pickupb.setVisibility(view.VISIBLE);
+                                detailsb.setVisibility(view.VISIBLE);
+
+                            }
+                        });
 
                         popupWindow1.getContentView().findViewById(R.id.confirmlocationbutton).setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -283,9 +351,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         Toast.makeText(getApplicationContext(), latitude + " " + longitude, Toast.LENGTH_SHORT).show();
 
+        if(markerOptions!=null){
+           googleMap.clear();
+        }
+
             if(latitude!=0 && longitude!=0) {
                 LatLng latLng = new LatLng(latitude, longitude);
-                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("My Location");
+
+                markerOptions = new MarkerOptions().position(latLng).title("My Location");
+
                 googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20f));
                 googleMap.addMarker(markerOptions);
